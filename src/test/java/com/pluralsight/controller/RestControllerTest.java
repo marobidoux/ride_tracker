@@ -2,14 +2,13 @@ package com.pluralsight.controller;
 
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.pluralsight.model.Ride;
-
-import org.junit.Test;
 
 public class RestControllerTest {
 
@@ -34,10 +33,12 @@ public class RestControllerTest {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		Ride ride = new Ride();
-		ride.setName("Bobsled Trail Ride");
-		ride.setDuration(35);
+		ride.setName("Bobby Trail Ride");
+		ride.setDuration(60);
 		
-		restTemplate.put("http://localhost:8080/ride_tracker/ride", ride);
+		ride = restTemplate.postForObject("http://localhost:8080/ride_tracker/ride", ride, Ride.class);
+		
+		System.out.println("Ride: " + ride);
 	}
 	
 }
